@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<style>
+    /* Ripple effect */
+    .ripple {
+        background-position: center;
+        transition: background 0.8s, color 0.8s;
+    }
+
+    .ripple:hover {
+        background: #000000 radial-gradient(circle, transparent 1%, #ffffff 1%) center/15000%;
+    }
+
+    .ripple:active {
+        background-color: #ffffff;
+        background-size: 100%;
+        transition: background 0.8s;
+    }
+
+    .center {
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+    }
+
+    body {
+        background: var(--background-color);
+        color: var(--text-color);
+        font-family: 'Roboto';
+    }
+
+    table {
+        table-layout: fixed;
+    }
+
+    td, th {
+        border: 1px solid black;
+        text-align: left;
+        padding: 8px;
+        width: 1px;
+        white-space: nowrap;
+    }
+
+    .clickable {
+        cursor: pointer;
+    }
+
+    tr:nth-child(even) {
+        background-color: var(--even-row-color);
+    }
+
+    tr:nth-child(odd){
+        background-color: var(--odd-row-color);
+    }
+
+    .btn {
+        background-color: var(--aux-color);
+        border: 2px solid black;
+        color: black;
+        padding: 7px 28px;
+        font-size: 16px;
+        cursor: pointer;
+        border-radius: 12px;
+    }
+
+    .change {
+        border-color: var(--change-color);
+        color: var(--change-color);
+        font-weight: bold;
+    }
+
+    .change:hover {
+        background: var(--change-color);
+        color: white;
+        font-weight: bold;
+    }
+
+    .danger {
+        background-color: var(--aux-color);
+        border-color: var(--danger-color);
+        color: var(--danger-color);
+        font-weight: bold;
+    }
+
+    .danger:hover {
+        background: #800000;
+        color: white;
+        font-weight: bold;
+    }
+
+    .create {
+        background-color: var(--aux-color);
+        border-color: var(--create-color);
+        color: var(--create-color);
+        font-weight: bold;
+    }
+
+    .create:hover {
+        background: #373737;
+        color: white;
+        font-weight: bold;
+    }
+
+    .add {
+        background-color: var(--aux-color);
+        border-color: var(--add-color);
+        color: var(--add-color);
+        font-weight: bold;
+    }
+
+    .add:hover {
+        background: #004e02;
+        color: white;
+        font-weight: bold;
+    }
+
+    h2 {
+        color: var(--header-color);
+    }
+
+    a.svg {
+        position: relative;
+        display: block;
+    }
+
+    a.svg:after {
+        content: "";
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+    }
+
+    input {
+        border-color: var(--aux-border-color);
+        background-color: var(--aux-color);
+        font-family: "Roboto";
+        color: var(--text-color);
+        font-size: 1em;
+    }
+
+    /* Style the header with a grey background and some padding */
+.header {
+  overflow: hidden;
+  background-color: var(--background-color);
+}
+
+/* Style the header links */
+.header a.right {
+  float: left;
+  color: var(--text-color);
+  text-align: center;
+  text-decoration: none;
+  padding: 16px;
+  font-size: 18px;
+  line-height: 25px;
+  border-radius: 4px;
+}
+
+/* Style the logo link (notice that we set the same value of line-height and font-size to prevent the header to increase when the font gets bigger */
+.header a.logo {
+  font-size: 25px;
+  font-weight: bold;
+}
+
+/* Change the background color on mouse-over */
+.header a.right:hover {
+  background-color: #ddd;
+  color: black;
+}
+
+/* Style the active/current link*/
+.header a.active {
+  background-color: dodgerblue;
+  color: white;
+}
+
+/* Float the link section to the right */
+.header-right {
+  float: right;
+}
+
+/* Add media queries for responsiveness - when the screen is 500px wide or less, stack the links on top of each other */
+@media screen and (max-width: 500px) {
+  .header a {
+    float: none;
+    display: block;
+    text-align: left;
+  }
+  .header-right {
+    float: none;
+  }
+}
+
+
+
+
+
+</style>
+
+<script type="text/javascript" src="{{ url_for('static', filename='js/sorttable.js') }}">
+</script>
+
+<head>
+    <link href="/static/css/dark-mode-switch-1.0.0/dark-mode.css" rel="stylesheet">
+    <link href='https://fonts.googleapis.com/css?family=Roboto' rel='stylesheet'>
+    <link rel="shortcut icon" type="image/x-icon" href="/static/favicon.png"/>
+    <meta charset="UTF-8">
+    <title>Firme</title>
+</head>
+<div class="header">
+  <a href="/" class="svg logo" style="width: 332px; height: 68px; display: inline-block">
+    <object data="/static/logo.svg" type="image/svg+xml" class="logo" style="width: 332px; height: 68px;">
+    </object>
+  </a>
+  <div class="header-right">
+    <a class="active right" href="{{ url_for('dogadjaji.fudbal') }}">Fudbal</a>
+    <a class="right" href="{{ url_for('dogadjaji.kosarka') }}">Košarka</a>
+    <a class="right" href="{{ url_for('dogadjaji.tenis') }}">Tenis</a>
+    <a class="right" href="{{ url_for('dogadjaji.moji') }}">Moji sportovi</a>
+  </div>
+</div>
+<body onload="startTime()">
+
+
+<div class="custom-control custom-switch" style="display: inline-block">
+  <input type="checkbox" class="custom-control-input" id="darkSwitch" />
+  <label class="custom-control-label" for="darkSwitch">Dark Mode</label>
+</div>
+<script src="/static/css/dark-mode-switch-1.0.0/dark-mode-switch.min.js"></script>
+
+<br>
+<table class="sortable">
+    <tr>
+        <th style="background: black; color: white" class="clickable">IME</th>
+        <th style="background: black; color: white" class="clickable">REZULTAT</th>
+        <th style="background: black; color: white" class="clickable"></th>
+
+    </tr>
+    {% for each in list %}
+    <tr>
+        <td>{{ each[0][0] }}</td>
+        <td>{{ each[0][1]git }} vs {{ each[0][1] }}</td>
+        <td style="color: var(--flag-text-color); text-align: center; font-weight: bold; background: {{each[1][0]}}">{{each[1][1]}}</td>
+        <td id="buttons">
+            <form style="display:inline-block;" action="{{url_for('dogadjaji.open', id1=each[1])}}" method="POST">
+                <button class="btn ripple add" type="submit" name="submit_button" value="open">Otvori</button>
+            </form>
+            <form id="term_form" action="{{url_for('dogadjaji.edit_company', id1=each[1])}}" method="POST"
+                style="display:inline-block">
+                <button id="change_button" class="btn ripple change">Izmeni</button>
+            </form>
+            <form style="display:inline-block;" action="{{url_for('dogadjaji.open', id1=each[1])}}" method="POST">
+                <button onclick="return confirm('Potvrdi brisanje firme! Ovo ce obrisati sve radnike firme!');"
+                        class="btn ripple danger" type="submit" name="submit_button" value="delete">Obriši</button>
+            </form>
+        </td>
+    </tr>
+    {% endfor %}
+    <tfoot>
+    <form id="company_form" class="submit_company" method="POST" action="{{url_for('dogadjaji.event')}}">
+        <tr>
+            <td><input type="text" id="event_name" name="event_name"><br></td>
+            <td><input type="text" id="event_date" name="event_date"><br></td>
+            <td></td>
+            <td style="text-align: center">
+                <button style="width:100%" class="btn ripple create" type="submit" name="submit_button" value="event">
+                    Dodaj
+                </button>
+            </td>
+        </tr>
+        <br>
+    </form>
+    </tfoot>
+</table>
+<br>
+</body>
+</html>
